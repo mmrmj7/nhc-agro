@@ -304,13 +304,26 @@ fetch(PRICE_API)
 .then(response => response.json())
 .then(data => {
 
-    console.log(data);
+    console.log("GOOGLE PRICE DATA:", data);
+
+    if (!data.success) {
+        console.error("API returned an error");
+        return;
+    }
 
     data.prices.forEach(item => {
 
+        const product =
+            String(item.product).trim().toLowerCase();
+
+        const variety =
+            String(item.variety).trim().toLowerCase();
+
+        console.log(product, variety, item.price);
+
         if (
-            item.product.trim().toLowerCase() === "sauff" &&
-            item.variety.trim().toLowerCase() === "european 99"
+            product === "sauff" &&
+            variety === "european 99"
         ) {
 
             document.getElementById("sauff-european").textContent =
@@ -321,7 +334,11 @@ fetch(PRICE_API)
     });
 
 })
-.catch(error => console.error(error));
+.catch(error => {
+
+    console.error("PRICE ERROR:", error);
+
+});
 
 </script>
 </body>
