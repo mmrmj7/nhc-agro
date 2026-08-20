@@ -508,10 +508,10 @@
 <script>
 
 const PRICE_API =
-"https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec?action=prices";
+"https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec";
 
 
-function cleanText(value) {
+function clean(value) {
 
     return String(value || "")
         .trim()
@@ -521,75 +521,69 @@ function cleanText(value) {
 }
 
 
-function setPrice(id, price) {
+function update(id, value) {
 
     const element = document.getElementById(id);
 
     if (element) {
 
-        element.textContent = price;
+        element.textContent = value;
 
     }
 
 }
 
 
-function loadPrices() {
+async function loadPrices() {
 
-    fetch(
-        PRICE_API + "&cache=" + Date.now(),
-        {
+    try {
+
+        // Random value prevents browser/CDN caching
+        const url =
+            PRICE_API +
+            "?t=" +
+            Date.now() +
+            Math.random();
+
+
+        const response = await fetch(url, {
+
+            method: "GET",
+
             cache: "no-store"
-        }
-    )
 
-    .then(response => {
+        });
 
-        if (!response.ok) {
 
-            throw new Error(
-                "HTTP Error: " + response.status
-            );
+        const data = await response.json();
 
-        }
 
-        return response.json();
-
-    })
-
-    .then(data => {
-
-        console.log("NHC AGRO PRICE DATA:", data);
+        console.log("FRESH PRICE DATA:", data);
 
 
         if (!data.success) {
 
-            console.error(
-                "Price API returned an error:",
-                data
+            throw new Error(
+                data.error || "API error"
             );
-
-            return;
 
         }
 
 
-        data.prices.forEach(item => {
+        data.prices.forEach(function(item) {
 
-            const product = cleanText(item.product);
+            const product = clean(item.product);
 
-            const variety = cleanText(item.variety);
+            const variety = clean(item.variety);
 
 
-            /* =========================
-               JEERA
-            ========================= */
+            // JEERA
 
             if (product === "jeera") {
 
                 if (variety.includes("singapore")) {
 
-                    setPrice(
+                    update(
                         "jeera-singapore",
                         item.price
                     );
@@ -598,7 +592,7 @@ function loadPrices() {
 
                 else if (variety.includes("european")) {
 
-                    setPrice(
+                    update(
                         "jeera-european",
                         item.price
                     );
@@ -607,7 +601,7 @@ function loadPrices() {
 
                 else if (variety.includes("super bold")) {
 
-                    setPrice(
+                    update(
                         "jeera-superbold",
                         item.price
                     );
@@ -617,15 +611,13 @@ function loadPrices() {
             }
 
 
-            /* =========================
-               SAUFF
-            ========================= */
+            // SAUFF
 
             else if (product === "sauff") {
 
                 if (variety.includes("regular")) {
 
-                    setPrice(
+                    update(
                         "sauff-regular",
                         item.price
                     );
@@ -634,7 +626,7 @@ function loadPrices() {
 
                 else if (variety.includes("green pan")) {
 
-                    setPrice(
+                    update(
                         "sauff-green",
                         item.price
                     );
@@ -643,7 +635,7 @@ function loadPrices() {
 
                 else if (variety.includes("european")) {
 
-                    setPrice(
+                    update(
                         "sauff-european",
                         item.price
                     );
@@ -653,15 +645,13 @@ function loadPrices() {
             }
 
 
-            /* =========================
-               METHI
-            ========================= */
+            // METHI
 
             else if (product === "methi") {
 
                 if (variety.includes("grinding")) {
 
-                    setPrice(
+                    update(
                         "methi-grinding",
                         item.price
                     );
@@ -670,7 +660,7 @@ function loadPrices() {
 
                 else if (variety.includes("regular")) {
 
-                    setPrice(
+                    update(
                         "methi-regular",
                         item.price
                     );
@@ -679,7 +669,7 @@ function loadPrices() {
 
                 else if (variety.includes("bold")) {
 
-                    setPrice(
+                    update(
                         "methi-bold",
                         item.price
                     );
@@ -689,15 +679,13 @@ function loadPrices() {
             }
 
 
-            /* =========================
-               AJWAIN
-            ========================= */
+            // AJWAIN
 
             else if (product === "ajwain") {
 
                 if (variety.includes("powerseeds")) {
 
-                    setPrice(
+                    update(
                         "ajwain-powerseeds",
                         item.price
                     );
@@ -706,7 +694,7 @@ function loadPrices() {
 
                 else if (variety.includes("regular")) {
 
-                    setPrice(
+                    update(
                         "ajwain-regular",
                         item.price
                     );
@@ -715,7 +703,7 @@ function loadPrices() {
 
                 else if (variety.includes("bold")) {
 
-                    setPrice(
+                    update(
                         "ajwain-bold",
                         item.price
                     );
@@ -725,15 +713,13 @@ function loadPrices() {
             }
 
 
-            /* =========================
-               DHANIYA
-            ========================= */
+            // DHANIYA
 
             else if (product === "dhaniya") {
 
                 if (variety === "engle") {
 
-                    setPrice(
+                    update(
                         "dhaniya-engle",
                         item.price
                     );
@@ -742,7 +728,7 @@ function loadPrices() {
 
                 else if (variety === "green") {
 
-                    setPrice(
+                    update(
                         "dhaniya-green",
                         item.price
                     );
@@ -754,7 +740,7 @@ function loadPrices() {
                     variety === "green+"
                 ) {
 
-                    setPrice(
+                    update(
                         "dhaniya-greenplus",
                         item.price
                     );
@@ -765,24 +751,32 @@ function loadPrices() {
 
         });
 
-    })
 
-    .catch(error => {
+    }
+
+    catch (error) {
 
         console.error(
-            "NHC AGRO PRICE LOADING ERROR:",
+            "PRICE LOAD ERROR:",
             error
         );
 
-    });
+    }
 
 }
 
 
+// Load immediately
 loadPrices();
 
-</script>
 
+// Check again every 30 seconds
+setInterval(
+    loadPrices,
+    30000
+);
+
+</script>
 
 </body>
 
