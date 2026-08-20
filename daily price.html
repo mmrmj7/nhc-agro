@@ -145,68 +145,272 @@
     </p>
 </div>
 
-    <!-- daily price  -->
-    <div class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
-        
-        <!-- Jeera Card -->
-        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
-            <h2 class="text-2xl font-bold text-green-800 mb-4">Jeera (Cumin)</h2>
-            <img src="jeera.png" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
-            <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Singapore 99  &nbsp; Rs &nbsp;220 /-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> European 99&nbsp;&nbsp;&nbsp;&nbsp;Rs &nbsp;250/-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Super Bold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs &nbsp; 270/-</li>
-            </ul>
-        </div>
+   <!-- daily price -->
+<div class="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+    
+    <!-- Jeera Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Jeera (Cumin)</h2>
+        <img src="jeera.png" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
 
-        <!-- Sauff Card -->
-        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
-            <h2 class="text-2xl font-bold text-green-800 mb-4">Sauff (Fennel)</h2>
-            <img src="sauff.jpg" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
-             <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Regular sortex  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Rs 135 /-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Green pan natural &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs 185/-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> European 99 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs   230/-</li>
-            </ul>
-        </div>
+        <ul class="space-y-2 text-gray-700">
 
-        <!-- Methi Card -->
-        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
-            <h2 class="text-2xl font-bold text-green-800 mb-4">Methi (Fenugreek)</h2>
-            <img src="methi" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
-            <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Grinding  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Rs 64 /-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Regular sortex&nbsp;&nbsp;&nbsp;&nbsp;Rs 78/-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Bold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs 81/-</li>
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Singapore 99 &nbsp; Rs &nbsp;
+                <span id="jeera-singapore">---</span> /-
+            </li>
 
-            </ul>
-        </div>
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                European 99 &nbsp; Rs &nbsp;
+                <span id="jeera-european">---</span> /-
+            </li>
 
-        <!-- Ajwain Card -->
-        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
-            <h2 class="text-2xl font-bold text-green-800 mb-4">Ajwain</h2>
-            <img src="ajwain" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
-            <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Powerseeds&nbsp;&nbsp;Rs 100/-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Regular &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;Rs 190 /-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> bold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs 205/-</li>
-             </ul>
-        </div>
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Super Bold &nbsp; Rs &nbsp;
+                <span id="jeera-superbold">---</span> /-
+            </li>
 
-        <!-- Dhaniya card-->
-        <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
-            <h2 class="text-2xl font-bold text-green-800 mb-4">Dhaniya(coriander) </h2>
-            <img src="dhaniya.png" alt="jeera" px:1 mx-auto height="100" width="100" flex itemid="images">
-             <ul class="space-y-2 text-gray-700">
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Engle  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;Rs 170 /-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Green  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs 180/-</li>
-                <li class="flex items-center"><span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span> Green +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rs 200/-</li>
-            </ul>
-            
-        </div>
-
+        </ul>
     </div>
 
-   
+
+    <!-- Sauff Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Sauff (Fennel)</h2>
+        <img src="sauff.jpg" alt="sauff" px:1 mx-auto height="100" width="100" flex itemid="images">
+
+        <ul class="space-y-2 text-gray-700">
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Regular Sortex &nbsp; Rs &nbsp;
+                <span id="sauff-regular">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Green Pan Natural &nbsp; Rs &nbsp;
+                <span id="sauff-green">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                European 99 &nbsp; Rs &nbsp;
+                <span id="sauff-european">---</span> /-
+            </li>
+
+        </ul>
+    </div>
+
+
+    <!-- Methi Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Methi (Fenugreek)</h2>
+        <img src="methi" alt="methi" px:1 mx-auto height="100" width="100" flex itemid="images">
+
+        <ul class="space-y-2 text-gray-700">
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Grinding &nbsp; Rs &nbsp;
+                <span id="methi-grinding">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Regular Sortex &nbsp; Rs &nbsp;
+                <span id="methi-regular">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Bold &nbsp; Rs &nbsp;
+                <span id="methi-bold">---</span> /-
+            </li>
+
+        </ul>
+    </div>
+
+
+    <!-- Ajwain Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Ajwain</h2>
+        <img src="ajwain" alt="ajwain" px:1 mx-auto height="100" width="100" flex itemid="images">
+
+        <ul class="space-y-2 text-gray-700">
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Powerseeds &nbsp; Rs &nbsp;
+                <span id="ajwain-powerseeds">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Regular &nbsp; Rs &nbsp;
+                <span id="ajwain-regular">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Bold &nbsp; Rs &nbsp;
+                <span id="ajwain-bold">---</span> /-
+            </li>
+
+        </ul>
+    </div>
+
+
+    <!-- Dhaniya Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg border-b-4 border-green-600">
+        <h2 class="text-2xl font-bold text-green-800 mb-4">Dhaniya (Coriander)</h2>
+        <img src="dhaniya.png" alt="dhaniya" px:1 mx-auto height="100" width="100" flex itemid="images">
+
+        <ul class="space-y-2 text-gray-700">
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Engle &nbsp; Rs &nbsp;
+                <span id="dhaniya-engle">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Green &nbsp; Rs &nbsp;
+                <span id="dhaniya-green">---</span> /-
+            </li>
+
+            <li class="flex items-center">
+                <span class="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
+                Green + &nbsp; Rs &nbsp;
+                <span id="dhaniya-greenplus">---</span> /-
+            </li>
+
+        </ul>
+    </div>
+
+</div>
+    </div>
+
+   <script>
+
+const PRICE_API =
+"https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec";
+
+
+fetch(PRICE_API)
+
+.then(response => response.json())
+
+.then(data => {
+
+    if (!data.success) {
+        console.error("Price API error");
+        return;
+    }
+
+    data.prices.forEach(item => {
+
+        const product = item.product.trim().toLowerCase();
+        const variety = item.variety.trim().toLowerCase();
+
+        let id = "";
+
+
+        // JEERA
+        if (product === "jeera") {
+
+            if (variety === "singapore 99")
+                id = "jeera-singapore";
+
+            else if (variety === "european 99")
+                id = "jeera-european";
+
+            else if (variety === "super bold")
+                id = "jeera-superbold";
+        }
+
+
+        // SAUFF
+        else if (product === "sauff") {
+
+            if (variety === "regular sortex")
+                id = "sauff-regular";
+
+            else if (variety === "green pan natural")
+                id = "sauff-green";
+
+            else if (variety === "european 99")
+                id = "sauff-european";
+        }
+
+
+        // METHI
+        else if (product === "methi") {
+
+            if (variety === "grinding")
+                id = "methi-grinding";
+
+            else if (variety === "regular sortex")
+                id = "methi-regular";
+
+            else if (variety === "bold")
+                id = "methi-bold";
+        }
+
+
+        // AJWAIN
+        else if (product === "ajwain") {
+
+            if (variety === "powerseeds")
+                id = "ajwain-powerseeds";
+
+            else if (variety === "regular")
+                id = "ajwain-regular";
+
+            else if (variety === "bold")
+                id = "ajwain-bold";
+        }
+
+
+        // DHANIYA
+        else if (product === "dhaniya") {
+
+            if (variety === "engle")
+                id = "dhaniya-engle";
+
+            else if (variety === "green")
+                id = "dhaniya-green";
+
+            else if (variety === "green +")
+                id = "dhaniya-greenplus";
+        }
+
+
+        // PUT PRICE ON WEBSITE
+        if (id) {
+
+            const element = document.getElementById(id);
+
+            if (element) {
+                element.textContent = item.price;
+            }
+
+        }
+
+    });
+
+})
+
+.catch(error => {
+
+    console.error("Could not load prices:", error);
+
+});
+
+</script>
 </body>
 </html>
