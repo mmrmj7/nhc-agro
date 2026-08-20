@@ -298,164 +298,31 @@
    <script>
 
 const PRICE_API =
-"https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec";
+"https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec?action=prices";
 
-
-// Clean text so spaces/capital letters don't cause problems
-function cleanText(text) {
-    return String(text)
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, " ");
-}
-
-
-fetch(PRICE_API + "?action=prices")
-
+fetch(PRICE_API)
 .then(response => response.json())
-
 .then(data => {
 
-    console.log("Price data:", data);
-
-    if (!data.success) {
-        console.error("Price API returned an error");
-        return;
-    }
-
+    console.log(data);
 
     data.prices.forEach(item => {
 
-        const product = cleanText(item.product);
-        const variety = cleanText(item.variety);
-
-        let id = "";
-
-
-        // =========================
-        // JEERA
-        // =========================
-
-        if (product === "jeera") {
-
-            if (variety.includes("singapore"))
-                id = "jeera-singapore";
-
-            else if (variety.includes("european"))
-                id = "jeera-european";
-
-            else if (variety.includes("super bold"))
-                id = "jeera-superbold";
-        }
-
-
-        // =========================
-        // SAUFF
-        // =========================
-
-        else if (product === "sauff") {
-
-            if (variety.includes("regular"))
-                id = "sauff-regular";
-
-            else if (variety.includes("green pan"))
-                id = "sauff-green";
-
-            else if (variety.includes("european"))
-                id = "sauff-european";
-        }
-
-
-        // =========================
-        // METHI
-        // =========================
-
-        else if (product === "methi") {
-
-            if (variety.includes("grinding"))
-                id = "methi-grinding";
-
-            else if (variety.includes("regular"))
-                id = "methi-regular";
-
-            else if (variety.includes("bold"))
-                id = "methi-bold";
-        }
-
-
-        // =========================
-        // AJWAIN
-        // =========================
-
-        else if (product === "ajwain") {
-
-            if (variety.includes("power"))
-                id = "ajwain-powerseeds";
-
-            else if (variety.includes("regular"))
-                id = "ajwain-regular";
-
-            else if (variety.includes("bold"))
-                id = "ajwain-bold";
-        }
-
-
-        // =========================
-        // DHANIYA
-        // =========================
-
-        else if (
-            product === "dhaniya" ||
-            product.includes("coriander")
+        if (
+            item.product.trim().toLowerCase() === "sauff" &&
+            item.variety.trim().toLowerCase() === "european 99"
         ) {
 
-            if (variety.includes("engle"))
-                id = "dhaniya-engle";
-
-            else if (
-                variety === "green" ||
-                variety.startsWith("green ")
-            )
-                id = "dhaniya-green";
-
-            else if (
-                variety.includes("green +") ||
-                variety.includes("green+")
-            )
-                id = "dhaniya-greenplus";
-        }
-
-
-        // =========================
-        // UPDATE WEBSITE
-        // =========================
-
-        if (id) {
-
-            const element =
-                document.getElementById(id);
-
-            if (element) {
-
-                element.textContent =
-                    item.price;
-
-            }
+            document.getElementById("sauff-european").textContent =
+                item.price;
 
         }
 
     });
 
 })
+.catch(error => console.error(error));
 
-.catch(error => {
-
-    console.error(
-        "Could not load prices:",
-        error
-    );
-
-});
-
-</script></body>
+</script>
+</body>
 </html>
