@@ -301,102 +301,145 @@ const PRICE_API =
 "https://script.google.com/macros/s/AKfycbwOJE-MLC1miGlHRaIEsFW7TACqvsBh3Q4gQaZhTMW0QsReLpbEFiqfwq1jc-E2aKqX/exec";
 
 
-fetch(PRICE_API)
+// Clean text so spaces/capital letters don't cause problems
+function cleanText(text) {
+    return String(text)
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, " ");
+}
+
+
+fetch(PRICE_API + "?action=prices")
 
 .then(response => response.json())
 
 .then(data => {
 
+    console.log("Price data:", data);
+
     if (!data.success) {
-        console.error("Price API error");
+        console.error("Price API returned an error");
         return;
     }
 
+
     data.prices.forEach(item => {
 
-        const product = item.product.trim().toLowerCase();
-        const variety = item.variety.trim().toLowerCase();
+        const product = cleanText(item.product);
+        const variety = cleanText(item.variety);
 
         let id = "";
 
 
+        // =========================
         // JEERA
+        // =========================
+
         if (product === "jeera") {
 
-            if (variety === "singapore 99")
+            if (variety.includes("singapore"))
                 id = "jeera-singapore";
 
-            else if (variety === "european 99")
+            else if (variety.includes("european"))
                 id = "jeera-european";
 
-            else if (variety === "super bold")
+            else if (variety.includes("super bold"))
                 id = "jeera-superbold";
         }
 
 
+        // =========================
         // SAUFF
+        // =========================
+
         else if (product === "sauff") {
 
-            if (variety === "regular sortex")
+            if (variety.includes("regular"))
                 id = "sauff-regular";
 
-            else if (variety === "green pan natural")
+            else if (variety.includes("green pan"))
                 id = "sauff-green";
 
-            else if (variety === "european 99")
+            else if (variety.includes("european"))
                 id = "sauff-european";
         }
 
 
+        // =========================
         // METHI
+        // =========================
+
         else if (product === "methi") {
 
-            if (variety === "grinding")
+            if (variety.includes("grinding"))
                 id = "methi-grinding";
 
-            else if (variety === "regular sortex")
+            else if (variety.includes("regular"))
                 id = "methi-regular";
 
-            else if (variety === "bold")
+            else if (variety.includes("bold"))
                 id = "methi-bold";
         }
 
 
+        // =========================
         // AJWAIN
+        // =========================
+
         else if (product === "ajwain") {
 
-            if (variety === "powerseeds")
+            if (variety.includes("power"))
                 id = "ajwain-powerseeds";
 
-            else if (variety === "regular")
+            else if (variety.includes("regular"))
                 id = "ajwain-regular";
 
-            else if (variety === "bold")
+            else if (variety.includes("bold"))
                 id = "ajwain-bold";
         }
 
 
+        // =========================
         // DHANIYA
-        else if (product === "dhaniya") {
+        // =========================
 
-            if (variety === "engle")
+        else if (
+            product === "dhaniya" ||
+            product.includes("coriander")
+        ) {
+
+            if (variety.includes("engle"))
                 id = "dhaniya-engle";
 
-            else if (variety === "green")
+            else if (
+                variety === "green" ||
+                variety.startsWith("green ")
+            )
                 id = "dhaniya-green";
 
-            else if (variety === "green +")
+            else if (
+                variety.includes("green +") ||
+                variety.includes("green+")
+            )
                 id = "dhaniya-greenplus";
         }
 
 
-        // PUT PRICE ON WEBSITE
+        // =========================
+        // UPDATE WEBSITE
+        // =========================
+
         if (id) {
 
-            const element = document.getElementById(id);
+            const element =
+                document.getElementById(id);
 
             if (element) {
-                element.textContent = item.price;
+
+                element.textContent =
+                    item.price;
+
             }
 
         }
@@ -407,10 +450,12 @@ fetch(PRICE_API)
 
 .catch(error => {
 
-    console.error("Could not load prices:", error);
+    console.error(
+        "Could not load prices:",
+        error
+    );
 
 });
 
-</script>
-</body>
+</script></body>
 </html>
