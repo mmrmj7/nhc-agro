@@ -521,69 +521,66 @@ function clean(value) {
 }
 
 
-function update(id, value) {
+function setPrice(id, price) {
 
-    const element = document.getElementById(id);
+    const element =
+        document.getElementById(id);
 
     if (element) {
 
-        element.textContent = value;
+        element.textContent = price;
 
     }
 
 }
 
 
-async function loadPrices() {
+function loadPrices() {
 
-    try {
-
-        // Random value prevents browser/CDN caching
-        const url =
-            PRICE_API +
-            "?t=" +
-            Date.now() +
-            Math.random();
+    const callbackName =
+        "nhcPrices_" + Date.now();
 
 
-        const response = await fetch(url, {
+    window[callbackName] = function(data) {
 
-            method: "GET",
-
-            cache: "no-store"
-
-        });
-
-
-        const data = await response.json();
-
-
-        console.log("FRESH PRICE DATA:", data);
+        console.log(
+            "NHC AGRO PRICE DATA:",
+            data
+        );
 
 
         if (!data.success) {
 
-            throw new Error(
-                data.error || "API error"
+            console.error(
+                "Price API error:",
+                data.error
             );
+
+            cleanup();
+
+            return;
 
         }
 
 
         data.prices.forEach(function(item) {
 
-            const product = clean(item.product);
+            const product =
+                clean(item.product);
 
-            const variety = clean(item.variety);
+            const variety =
+                clean(item.variety);
 
 
-            // JEERA
+            /* =========================
+               JEERA
+            ========================= */
 
             if (product === "jeera") {
 
                 if (variety.includes("singapore")) {
 
-                    update(
+                    setPrice(
                         "jeera-singapore",
                         item.price
                     );
@@ -592,7 +589,7 @@ async function loadPrices() {
 
                 else if (variety.includes("european")) {
 
-                    update(
+                    setPrice(
                         "jeera-european",
                         item.price
                     );
@@ -601,7 +598,7 @@ async function loadPrices() {
 
                 else if (variety.includes("super bold")) {
 
-                    update(
+                    setPrice(
                         "jeera-superbold",
                         item.price
                     );
@@ -611,13 +608,15 @@ async function loadPrices() {
             }
 
 
-            // SAUFF
+            /* =========================
+               SAUFF
+            ========================= */
 
             else if (product === "sauff") {
 
                 if (variety.includes("regular")) {
 
-                    update(
+                    setPrice(
                         "sauff-regular",
                         item.price
                     );
@@ -626,7 +625,7 @@ async function loadPrices() {
 
                 else if (variety.includes("green pan")) {
 
-                    update(
+                    setPrice(
                         "sauff-green",
                         item.price
                     );
@@ -635,7 +634,7 @@ async function loadPrices() {
 
                 else if (variety.includes("european")) {
 
-                    update(
+                    setPrice(
                         "sauff-european",
                         item.price
                     );
@@ -645,13 +644,15 @@ async function loadPrices() {
             }
 
 
-            // METHI
+            /* =========================
+               METHI
+            ========================= */
 
             else if (product === "methi") {
 
                 if (variety.includes("grinding")) {
 
-                    update(
+                    setPrice(
                         "methi-grinding",
                         item.price
                     );
@@ -660,7 +661,7 @@ async function loadPrices() {
 
                 else if (variety.includes("regular")) {
 
-                    update(
+                    setPrice(
                         "methi-regular",
                         item.price
                     );
@@ -669,7 +670,7 @@ async function loadPrices() {
 
                 else if (variety.includes("bold")) {
 
-                    update(
+                    setPrice(
                         "methi-bold",
                         item.price
                     );
@@ -679,13 +680,15 @@ async function loadPrices() {
             }
 
 
-            // AJWAIN
+            /* =========================
+               AJWAIN
+            ========================= */
 
             else if (product === "ajwain") {
 
                 if (variety.includes("powerseeds")) {
 
-                    update(
+                    setPrice(
                         "ajwain-powerseeds",
                         item.price
                     );
@@ -694,7 +697,7 @@ async function loadPrices() {
 
                 else if (variety.includes("regular")) {
 
-                    update(
+                    setPrice(
                         "ajwain-regular",
                         item.price
                     );
@@ -703,7 +706,7 @@ async function loadPrices() {
 
                 else if (variety.includes("bold")) {
 
-                    update(
+                    setPrice(
                         "ajwain-bold",
                         item.price
                     );
@@ -713,13 +716,15 @@ async function loadPrices() {
             }
 
 
-            // DHANIYA
+            /* =========================
+               DHANIYA
+            ========================= */
 
             else if (product === "dhaniya") {
 
                 if (variety === "engle") {
 
-                    update(
+                    setPrice(
                         "dhaniya-engle",
                         item.price
                     );
@@ -728,7 +733,7 @@ async function loadPrices() {
 
                 else if (variety === "green") {
 
-                    update(
+                    setPrice(
                         "dhaniya-green",
                         item.price
                     );
@@ -740,7 +745,7 @@ async function loadPrices() {
                     variety === "green+"
                 ) {
 
-                    update(
+                    setPrice(
                         "dhaniya-greenplus",
                         item.price
                     );
@@ -752,25 +757,63 @@ async function loadPrices() {
         });
 
 
+        cleanup();
+
+    };
+
+
+    function cleanup() {
+
+        delete window[callbackName];
+
+        const oldScript =
+            document.getElementById(callbackName);
+
+        if (oldScript) {
+
+            oldScript.remove();
+
+        }
+
     }
 
-    catch (error) {
+
+    const script =
+        document.createElement("script");
+
+
+    script.id = callbackName;
+
+
+    script.src =
+        PRICE_API +
+        "?callback=" +
+        callbackName +
+        "&t=" +
+        Date.now();
+
+
+    script.onerror = function() {
 
         console.error(
-            "PRICE LOAD ERROR:",
-            error
+            "Could not connect to Google Apps Script"
         );
 
-    }
+        cleanup();
+
+    };
+
+
+    document.body.appendChild(script);
 
 }
 
 
-// Load immediately
+// Load prices when page opens
 loadPrices();
 
 
-// Check again every 30 seconds
+// Automatically check every 30 seconds
 setInterval(
     loadPrices,
     30000
