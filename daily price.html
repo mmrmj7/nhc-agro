@@ -504,7 +504,7 @@
 <!-- =========================================================
      PRICE LOADING SCRIPT
 ========================================================= -->
-
+<!-- PRICE LOADING SCRIPT -->
 <script>
 
 const PRICE_API =
@@ -512,64 +512,43 @@ const PRICE_API =
 
 
 function clean(value) {
-
     return String(value || "")
         .trim()
         .toLowerCase()
         .replace(/\s+/g, " ");
-
 }
 
 
 function setPrice(id, price) {
-
-    const element =
-        document.getElementById(id);
+    const element = document.getElementById(id);
 
     if (element) {
-
         element.textContent = price;
-
     }
-
 }
 
 
-function loadPrices() {
+async function loadPrices() {
 
-    const callbackName =
-        "nhcPrices_" + Date.now();
+    try {
 
-
-    window[callbackName] = function(data) {
-
-        console.log(
-            "NHC AGRO PRICE DATA:",
-            data
+        const response = await fetch(
+            PRICE_API + "?t=" + Date.now()
         );
 
-
-        if (!data.success) {
-
-            console.error(
-                "Price API error:",
-                data.error
-            );
-
-            cleanup();
-
-            return;
-
+        if (!response.ok) {
+            throw new Error("Failed to load prices");
         }
 
+        const data = await response.json();
 
-        data.prices.forEach(function(item) {
+        console.log("NHC AGRO PRICE DATA:", data);
 
-            const product =
-                clean(item.product);
 
-            const variety =
-                clean(item.variety);
+        data.forEach(function(item) {
+
+            const product = clean(item.product);
+            const variety = clean(item.variety);
 
 
             /* =========================
@@ -757,54 +736,14 @@ function loadPrices() {
         });
 
 
-        cleanup();
-
-    };
-
-
-    function cleanup() {
-
-        delete window[callbackName];
-
-        const oldScript =
-            document.getElementById(callbackName);
-
-        if (oldScript) {
-
-            oldScript.remove();
-
-        }
-
-    }
-
-
-    const script =
-        document.createElement("script");
-
-
-    script.id = callbackName;
-
-
-    script.src =
-        PRICE_API +
-        "?callback=" +
-        callbackName +
-        "&t=" +
-        Date.now();
-
-
-    script.onerror = function() {
+    } catch (error) {
 
         console.error(
-            "Could not connect to Google Apps Script"
+            "Could not load prices:",
+            error
         );
 
-        cleanup();
-
-    };
-
-
-    document.body.appendChild(script);
+    }
 
 }
 
@@ -813,11 +752,8 @@ function loadPrices() {
 loadPrices();
 
 
-// Automatically check every 30 seconds
-setInterval(
-    loadPrices,
-    30000
-);
+// Automatically refresh prices every 30 seconds
+setInterval(loadPrices, 30000);
 
 </script>
 
